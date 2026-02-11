@@ -1,10 +1,10 @@
 import turtle as trtl
 import math
+import time
 painter=trtl.Turtle()
 screen = trtl.Screen()
 screen.bgcolor("blue")
 painter.speed(0)
-
 
 # create 2 underwater rocks
 painter.penup()
@@ -21,9 +21,6 @@ painter.color("gray")
 painter.begin_fill()
 painter.circle(145)
 painter.end_fill()
-
-
-
 
 #create 2 underwater plants
 painter.penup()
@@ -51,9 +48,6 @@ painter.right(180)
 painter.circle(70, 180)
 painter.end_fill()
 
-
-
-
 #create grass in the middle of the 2 plants
 painter.penup()
 painter.goto(0, -390)
@@ -80,9 +74,6 @@ painter.penup()
 painter.goto(0, -390)
 painter.hideturtle()
 
-
-
-
 #create the sandy bottom of the ocean
 painter.penup()
 painter.goto(-600, -427)
@@ -96,7 +87,6 @@ painter.goto(600, -427)
 painter.goto(-600, -427)
 painter.end_fill()
 
-
 #print title "Under the Sea" conditional statement
 for i in range(80):
     painter.penup()
@@ -104,9 +94,6 @@ for i in range(80):
     painter.pendown()
     painter.color("white")
     painter.write("Under the Sea", font=("Arial", 100, "bold"))
-
-
-
 
 #create a fishing line
 painter.penup()
@@ -122,13 +109,9 @@ painter.goto(185,-15)
 painter.color("silver")
 painter.begin_fill()
 
-
 #create a fishing hook
 painter.circle(10, 90)
 painter.end_fill()
-
-
-
 
 #create a turtle
 turtle_shape = "turtle"
@@ -136,32 +119,27 @@ turtle_color = "green"
 swimmer = trtl.Turtle()
 swimmer.shape(turtle_shape)
 swimmer.color(turtle_color)
-swimmer.shapesize(3, 3)  # make it bigger
+swimmer.shapesize(3, 3)  # make it big
 swimmer.penup()
 swimmer.speed(0)
 
 
-
-
-center_x, center_y = 0, 250  # turtle near top of water
+#create staring point and radius of the turtles movement in a circular path
+center_x, center_y = 0, 250  
 radius = 150
-angle = 86  # starts swimming at the top
 
 
-# add movement to the turtle and make it swim in a circular path underwater
+# move the turtle in a circular path using iteration
 def swim():
-    global angle
-    angle = (angle + 4) % 360
-    rad = math.radians(angle)
-    x = center_x + radius * math.cos(rad)
-    y = center_y + radius * math.sin(rad)
-    swimmer.goto(x, y)
-    heading = math.degrees(math.atan2(y - center_y, x - center_x)) + 90
-    swimmer.setheading(heading)
-    screen.ontimer(swim, 30)
-
-
-
+    while True:
+        for angle in range(0, 360, 4):
+            rad = math.radians(angle)
+            x = center_x + radius * math.cos(rad)
+            y = center_y + radius * math.sin(rad)
+            swimmer.goto(x, y)
+            heading = math.degrees(math.atan2(y - center_y, x - center_x)) + 90
+            swimmer.setheading(heading)
+            time.sleep(0.03)  # control the speed of the turtle's movement
 
 swim()
 screen.mainloop()
